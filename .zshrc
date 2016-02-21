@@ -1,30 +1,27 @@
 ### Exports ###
 export LANG=ja_JP.UTF-8
 export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-# export PATH="$PATH:$HOME/bin" #自作コマンド extsshなど
+export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 export PATH=/usr/local/bin:$PATH
-export ZSH=$HOME/.oh-my-zsh
 export LC_ALL=ja_JP.UTF-8
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:${PATH}
 export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}
-export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 
 ### Alias ###
 alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-alias mvim="mvim --remote-tab-silent" #reattach~しないとtmuxからの起動でコピペが効かずにブチ切れる羽目になる
+alias mvim="reattach-to-user-namespace mvim --remote-tab-silent " #reattach~しないとtmuxからの起動でコピペが効かずにブチ切れる羽目になる
 # alias vim="reattach-to-user-namespace mvim --remote-tab-silent "
 alias ssh='nocorrect ssh'
-
+alias ls='ls --color'
 
 ### ZSH ITSELF ###
 ## save zsh history
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
-## 補完機能の強化
-autoload -U compinit
-compinit
 ## emacsライクなキーバインド
 bindkey -e
 ## ビープを鳴らさない
@@ -94,28 +91,32 @@ autoload -Uz select-word-style
 select-word-style default
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
+## Ctrl+Dでログアウトするのを防ぐ
+setopt IGNOREEOF
 
 ### Virtualenvwrapper Config ###
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-    export WORKON_HOME=$HOME/.virtualenvs
-    source /usr/local/bin/virtualenvwrapper.sh
-fi
+# if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+#     export WORKON_HOME=$HOME/.virtualenvs
+#     source /usr/local/bin/virtualenvwrapper.sh
+# fi
+source /usr/local/bin/virtualenvwrapper_lazy.sh
+
+### zplug ###
+source ~/.zplug/zplug
+zplug "chrissicool/zsh-256color", of:"zsh-256color.plugin.zsh"
+# zplug "themes/ys", from:oh-my-zsh
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "mafredri/zsh-async", on:sindresorhus/pure
+zplug "sindresorhus/pure", nice:19
+zplug load --verbose
 
 ### cdr ###
 autoload -Uz add-zsh-hook
 autoload -Uz chpwd_recent_dirs cdr
 add-zsh-hook chpwd chpwd_recent_dirs
 
-### zplug ###
-source ~/.zplug/zplug
-zplug "chrissicool/zsh-256color", of:"zsh-256color.plugin.zsh"
-zplug "themes/ys", from:oh-my-zsh
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug load --verbose
-
-### Python settings ###
-# 重複パスを登録しない
+# # 重複パスを登録しない
 typeset -U path cdpath fpath manpath
 
 #peco
@@ -134,3 +135,22 @@ function peco-select-history() {
 }
 zle -N peco-select-history
 bindkey '^r' peco-select-history
+
+function peco-cdr () {
+    local selected_dir=$(cdr -l | awk '{ print $2 }' | peco)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-cdr
+bindkey '^@' peco-cdr
+
+## 補完機能の強化
+autoload -U compinit
+compinit -C
+
+# if type zprof > /dev/null 2>&1; then
+#     zprof | less
+# fi
