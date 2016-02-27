@@ -15,7 +15,10 @@ alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"
 alias mvim="reattach-to-user-namespace mvim --remote-tab-silent " #reattach~しないとtmuxからの起動でコピペが効かずにブチ切れる羽目になる
 # alias vim="reattach-to-user-namespace mvim --remote-tab-silent "
 alias ssh='nocorrect ssh'
-alias ls='ls --color'
+alias ls='ls --color -F'
+alias -g L='| less'
+alias -g H='| head'
+alias -g T='| tail'
 
 ### ZSH ITSELF ###
 ## save zsh history
@@ -104,7 +107,6 @@ source /usr/local/bin/virtualenvwrapper_lazy.sh
 ### zplug ###
 source ~/.zplug/zplug
 zplug "chrissicool/zsh-256color", of:"zsh-256color.plugin.zsh"
-# zplug "themes/ys", from:oh-my-zsh
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "mafredri/zsh-async", on:sindresorhus/pure
@@ -151,6 +153,7 @@ bindkey '^@' peco-cdr
 autoload -U compinit
 compinit -C
 
+## 起動時間プロファイリング用
 # if type zprof > /dev/null 2>&1; then
 #     zprof | less
 # fi
