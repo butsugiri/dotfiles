@@ -9,6 +9,9 @@ export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}
 export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 
+### pyenv ###
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+
 ### Alias ###
 alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
