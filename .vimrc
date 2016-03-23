@@ -35,16 +35,20 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/vimfiler'
-NeoBundle 'davidhalter/jedi-vim'
+NeoBundleLazy 'davidhalter/jedi-vim', {
+\   'autoload': {'filetypes': ['python']}
+\}
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'mhinz/vim-startify'
 NeoBundle 'tyru/caw.vim.git'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'surround.vim'
+NeoBundle 'lambdalisue/vim-pyenv'
 NeoBundleLazy "jmcantrell/vim-virtualenv", {
       \ "autoload": {
       \   "filetypes": ["python", "python3", "djangohtml"]
       \ }}
+
 
 call neobundle#end()
 
@@ -104,6 +108,7 @@ let g:quickrun_config._ = {
       \ 'runner/vimproc/updatetime' : 60,
       \ 'outputter' : 'error',
       \ 'outputter/error/success' : 'buffer',
+      \ 'outputter/error' : 'buffer',
       \ 'outputter/buffer/split'  : ':rightbelow 8sp',
       \ }
 
@@ -144,13 +149,12 @@ autocmd MyVimrc FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 "-------------------------
 "Caw.vim settings
 "-------------------------
-nmap <C-K> <Plug>(caw:i:toggle)
-vmap <C-K> <Plug>(caw:i:toggle)
+nmap <C-K> <Plug>(caw:tildepos:toggle)
+vmap <C-K> <Plug>(caw:tildepos:toggle)
 
 "-------------------------
 "Syntastic settings
 "-------------------------
-let g:syntastic_haskell_ghc_mod_exec = $HOME . '/bin/ghc-mod.sh'
 let g:syntastic_python_checkers = ["pyflakes"]
 
 "--------------------------
@@ -231,6 +235,8 @@ set shiftwidth=4
 set smarttab
 " 自動インデント
 set autoindent
+" 右に分割
+set splitright
 
 "--------------------------
 "Key Bindings
@@ -274,3 +280,4 @@ augroup END
 let g:hybrid_use_Xresources = 1
 set background=dark
 colorscheme hybrid
+

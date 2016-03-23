@@ -6,12 +6,15 @@ export PATH=/usr/local/bin:$PATH
 export LC_ALL=ja_JP.UTF-8
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:${PATH}
 export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+# export WORKON_HOME=$HOME/.virtualenvs
+# export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 
 ### pyenv ###
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
+### rbenv ###
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 ### Alias ###
 alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
@@ -105,7 +108,7 @@ setopt IGNOREEOF
 #     export WORKON_HOME=$HOME/.virtualenvs
 #     source /usr/local/bin/virtualenvwrapper.sh
 # fi
-source /usr/local/bin/virtualenvwrapper_lazy.sh
+# source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 ### zplug ###
 source ~/.zplug/zplug
@@ -160,3 +163,4 @@ compinit -C
 # if type zprof > /dev/null 2>&1; then
 #     zprof | less
 # fi
+
