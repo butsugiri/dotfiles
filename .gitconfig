@@ -1,0 +1,16 @@
+# This is Git's per-user configuration file.
+[include]
+    path = ~/.gitconfig_local
+[core]
+    excludesfile = ~/.gitignore
+[color]
+    ui = auto
+    status = auto
+    diff = auto
+    branch = auto
+    interactive = auto
+    grep = auto
+[alias]
+    s = status
+    branches = branch -a
+    cm = commit
