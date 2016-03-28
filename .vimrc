@@ -120,6 +120,7 @@ let g:startify_bookmarks = [
     \ '~/.gvimrc',
     \ '~/.zshrc',
     \ ]
+let g:startify_custom_header = []
 
 "-------------------------
 "Unite.vim settings
