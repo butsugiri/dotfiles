@@ -1,2 +1,10 @@
 .DS_Store
 .*.un~
+Thumbs.db
+.git/
+.hg/
+.svn/
+*.swp
+*.tmp
+*.log
+.chache/
