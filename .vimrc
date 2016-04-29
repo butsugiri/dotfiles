@@ -150,8 +150,8 @@ autocmd MyVimrc FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 "-------------------------
 "Caw.vim settings
 "-------------------------
-nmap <C-K> <Plug>(caw:tildepos:toggle)
-vmap <C-K> <Plug>(caw:tildepos:toggle)
+nmap <C-K> <Plug>(caw:hatpos:toggle)
+vmap <C-K> <Plug>(caw:hatpos:toggle)
 
 "-------------------------
 "Syntastic settings

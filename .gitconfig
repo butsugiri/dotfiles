@@ -3,6 +3,7 @@
     path = ~/.gitconfig_local
 [core]
     excludesfile = ~/.gitignore
+    quotepath = false
 [color]
     ui = auto
     status = auto

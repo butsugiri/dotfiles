@@ -6,6 +6,7 @@ export PATH=/usr/local/bin:$PATH
 export LC_ALL=ja_JP.UTF-8
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:${PATH}
 export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}
+export PATH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin/TH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin/
 # export WORKON_HOME=$HOME/.virtualenvs
 # export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 
@@ -21,6 +22,8 @@ alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"
 alias mvim="reattach-to-user-namespace mvim --remote-tab-silent " #reattach~しないとtmuxからの起動でコピペが効かずにブチ切れる羽目になる
 # alias vim="reattach-to-user-namespace mvim --remote-tab-silent "
 alias ssh='nocorrect ssh'
+alias ipy='ipython'
+alias py='python'
 alias ls='ls --color -F'
 alias -g L='| less'
 alias -g H='| head'
@@ -123,6 +126,7 @@ zplug load --verbose
 autoload -Uz add-zsh-hook
 autoload -Uz chpwd_recent_dirs cdr
 add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ":chpwd:*" recent-dirs-max 500 #cdr
 
 # # 重複パスを登録しない
 typeset -U path cdpath fpath manpath
