@@ -9,3 +9,10 @@ Thumbs.db
 *.log
 .chache/
 *.pyc
+*.pkl
+*.pdf
+.ipynb_checkpoints/
+data/
+work/
+result/
+.idea/

@@ -44,6 +44,7 @@ NeoBundle 'tyru/caw.vim.git'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'surround.vim'
 NeoBundle 'lambdalisue/vim-pyenv'
+NeoBundle 'tpope/vim-fugitive'
 NeoBundleLazy "jmcantrell/vim-virtualenv", {
       \ "autoload": {
       \   "filetypes": ["python", "python3", "djangohtml"]

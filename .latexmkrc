@@ -5,7 +5,7 @@ $dvipdf = 'dvipdfmx %O %S';
 $pdf_mode = 3;
 
 if ($^O eq 'darwin') {
-    $pdf_previewer = 'open -a Preview';
+    $pdf_previewer = 'open -a Skim';
 } elsif ($^O eq 'linux') {
     $pdf_previewer = 'evince';
 }

@@ -7,6 +7,7 @@ export LC_ALL=ja_JP.UTF-8
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:${PATH}
 export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}
 export PATH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin/TH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin/
+export ENHANCD_FILTER="/usr/local/bin/peco"
 # export WORKON_HOME=$HOME/.virtualenvs
 # export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 
@@ -23,8 +24,10 @@ alias mvim="reattach-to-user-namespace mvim --remote-tab-silent " #reattach~し�
 # alias vim="reattach-to-user-namespace mvim --remote-tab-silent "
 alias ssh='nocorrect ssh'
 alias ipy='ipython'
+alias ip='ipython'
 alias py='python'
 alias ls='ls --color -F'
+alias jp='jupyter notebook'
 alias -g L='| less'
 alias -g H='| head'
 alias -g T='| tail'
@@ -49,7 +52,7 @@ setopt auto_pushd
 ## 同じディレクトリを pushd しない
 setopt pushd_ignore_dups
 ## ファイル名で #, ~, ^ の 3 文字を正規表現として扱う
-setopt extended_glob
+# setopt extended_glob
 ## TAB で順に補完候補を切り替える
 setopt auto_menu
 ## zsh の開始, 終了時刻をヒストリファイルに書き込む
@@ -115,18 +118,19 @@ setopt IGNOREEOF
 
 ### zplug ###
 source ~/.zplug/zplug
-zplug "chrissicool/zsh-256color", of:"zsh-256color.plugin.zsh"
+zplug "chrissicool/zsh-256color", use:"zsh-256color.plugin.zsh"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting"
+zplug "b4b4r07/enhancd", use:enhancd.sh
 zplug "mafredri/zsh-async", on:sindresorhus/pure
-zplug "sindresorhus/pure", nice:19
+zplug "sindresorhus/pure", nice:19, frozen:1
 zplug load --verbose
 
 ### cdr ###
 autoload -Uz add-zsh-hook
 autoload -Uz chpwd_recent_dirs cdr
 add-zsh-hook chpwd chpwd_recent_dirs
-zstyle ":chpwd:*" recent-dirs-max 500 #cdr
+zstyle ":chpwd:*" recent-dirs-max 99 #cdr
 
 # # 重複パスを登録しない
 typeset -U path cdpath fpath manpath
@@ -157,7 +161,7 @@ function peco-cdr () {
     zle clear-screen
 }
 zle -N peco-cdr
-bindkey '^@' peco-cdr
+bindkey '^l' peco-cdr
 
 ## 補完機能の強化
 autoload -U compinit
@@ -168,3 +172,10 @@ compinit -C
 #     zprof | less
 # fi
 
+SOCK="/tmp/ssh-agent-$USER"
+if test $SSH_AUTH_SOCK && [ $SSH_AUTH_SOCK != $SOCK ]
+then
+    rm -f $SOCK
+    ln -sf $SSH_AUTH_SOCK $SOCK
+    export SSH_AUTH_SOCK=$SOCK
+fi
